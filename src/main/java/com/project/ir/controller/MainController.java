@@ -1,6 +1,7 @@
 package com.project.ir.controller;
 
 import com.project.ir.model.SearchResult;
+import com.project.ir.service.SearchService;
 import com.project.ir.util.ListUtilComponent;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,9 +21,11 @@ import java.util.stream.IntStream;
 public class MainController {
 
     private final ListUtilComponent listUtilComponent;
+    private final SearchService searchService;
 
-    public MainController(ListUtilComponent listUtilComponent) {
+    public MainController(ListUtilComponent listUtilComponent, SearchService searchService) {
         this.listUtilComponent = listUtilComponent;
+        this.searchService = searchService;
     }
 
     @RequestMapping
@@ -66,8 +69,7 @@ public class MainController {
                          @PageableDefault(size = 5) Pageable pageable) {
 
 
-        List<SearchResult> searchResultList = new ArrayList<>();
-
+        List<SearchResult> searchResultList = searchService.search(query);
         Page<SearchResult> searchResults = listUtilComponent.getPage(pageable, searchResultList);
 
         model.addAttribute("results", searchResults);
