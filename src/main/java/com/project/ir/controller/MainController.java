@@ -23,6 +23,8 @@ public class MainController {
     private final ListUtilComponent listUtilComponent;
     private final SearchService searchService;
 
+    private List<SearchResult> lastSearchResultList = new ArrayList<>();
+
     public MainController(ListUtilComponent listUtilComponent, SearchService searchService) {
         this.listUtilComponent = listUtilComponent;
         this.searchService = searchService;
@@ -32,20 +34,7 @@ public class MainController {
     public String getHomePage(Model model,
                               @PageableDefault(size = 5) Pageable pageable) {
 
-        List<SearchResult> searchResults = new ArrayList<>();
-        searchResults.add(new SearchResult("link1", "title1"));
-        searchResults.add(new SearchResult("link2", "title2"));
-        searchResults.add(new SearchResult("link3", "title3"));
-        searchResults.add(new SearchResult("link4", "title4"));
-        searchResults.add(new SearchResult("link5", "title5"));
-        searchResults.add(new SearchResult("link6", "title6"));
-        searchResults.add(new SearchResult("link7", "title7"));
-        searchResults.add(new SearchResult("link8", "title8"));
-        searchResults.add(new SearchResult("link9", "title9"));
-        searchResults.add(new SearchResult("link10", "title10"));
-        searchResults.add(new SearchResult("link11", "title11"));
-
-        Page<SearchResult> searchResultsPage = listUtilComponent.getPage(pageable, searchResults);
+        Page<SearchResult> searchResultsPage = listUtilComponent.getPage(pageable, lastSearchResultList);
         int totalPages = searchResultsPage.getTotalPages();
 
         if (totalPages > 0) {
@@ -69,8 +58,8 @@ public class MainController {
                          @PageableDefault(size = 5) Pageable pageable) {
 
 
-        List<SearchResult> searchResultList = searchService.search(query);
-        Page<SearchResult> searchResults = listUtilComponent.getPage(pageable, searchResultList);
+        lastSearchResultList = searchService.search(query);
+        Page<SearchResult> searchResults = listUtilComponent.getPage(pageable, lastSearchResultList);
 
         model.addAttribute("results", searchResults);
 
