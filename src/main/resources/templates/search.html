@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Engine</title>
+    <link rel="stylesheet" type="text/css" href="../static/search.css">
+</head>
+<body>
+<div class="main-container">
+    <div class="search-container">
+        <form th:action="@{/search}" class="search-bar">
+            <input type="search" name="query" pattern=".*\S.*" required>
+            <button class="search-btn" type="submit">
+                <span>Search</span>
+            </button>
+        </form>
+    </div>
+    <div class="result-container">
+        <div class="result">
+            <table>
+                <tr th:each="result : ${results.getContent()}">
+                    <td>
+                        <a class="link" th:text="*{result.getUrl()}" th:href="*{result.getUrl()}"></a>
+                        <a class="title" th:text="*{result.getTitle()}" th:href="*{result.getUrl()}"></a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="pagination" th:if="${results.totalPages > 0}" th:each="pageNumber : ${pageNumbers}">
+        <a th:href="@{/(size=${results.size}, page=${pageNumber-1})}"
+           th:text=${pageNumber}
+           th:class="${pageNumber==results.number + 1} ? active">
+        </a>
+    </div>
+</div>
+</body>
+</html>
