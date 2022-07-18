@@ -17,11 +17,11 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Controller
-public class ViewController {
+public class MainController {
 
     private final ListUtilComponent listUtilComponent;
 
-    public ViewController(ListUtilComponent listUtilComponent) {
+    public MainController(ListUtilComponent listUtilComponent) {
         this.listUtilComponent = listUtilComponent;
     }
 
