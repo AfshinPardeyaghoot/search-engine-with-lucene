@@ -29,9 +29,21 @@ public class MainController {
     public String getHomePage(Model model,
                               @PageableDefault(size = 5) Pageable pageable) {
 
+        List<SearchResult> searchResults = new ArrayList<>();
+        searchResults.add(new SearchResult("link1", "title1"));
+        searchResults.add(new SearchResult("link2", "title2"));
+        searchResults.add(new SearchResult("link3", "title3"));
+        searchResults.add(new SearchResult("link4", "title4"));
+        searchResults.add(new SearchResult("link5", "title5"));
+        searchResults.add(new SearchResult("link6", "title6"));
+        searchResults.add(new SearchResult("link7", "title7"));
+        searchResults.add(new SearchResult("link8", "title8"));
+        searchResults.add(new SearchResult("link9", "title9"));
+        searchResults.add(new SearchResult("link10", "title10"));
+        searchResults.add(new SearchResult("link11", "title11"));
 
-        Page<SearchResult> searchResults = listUtilComponent.getPage(pageable, new ArrayList<>());
-        int totalPages = searchResults.getTotalPages();
+        Page<SearchResult> searchResultsPage = listUtilComponent.getPage(pageable, searchResults);
+        int totalPages = searchResultsPage.getTotalPages();
 
         if (totalPages > 0) {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
@@ -39,7 +51,7 @@ public class MainController {
                     .collect(Collectors.toList());
             model.addAttribute("pageNumbers", pageNumbers);
         }
-        model.addAttribute("results", searchResults);
+        model.addAttribute("results", searchResultsPage);
         return "search";
     }
 
@@ -51,7 +63,7 @@ public class MainController {
     @RequestMapping("/search")
     public String search(Model model,
                          @RequestParam String query,
-                         @PageableDefault Pageable pageable) {
+                         @PageableDefault(size = 5) Pageable pageable) {
 
 
         List<SearchResult> searchResultList = new ArrayList<>();

@@ -27,11 +27,13 @@
             </table>
         </div>
     </div>
-    <div class="pagination" th:if="${results.totalPages > 0}" th:each="pageNumber : ${pageNumbers}">
-        <a th:href="@{/(size=${results.size}, page=${pageNumber-1})}"
-           th:text=${pageNumber}
-           th:class="${pageNumber==results.number + 1} ? active">
-        </a>
+    <div class="pagination-container">
+        <div class="pagination" th:if="${results.totalPages > 0}" th:each="pageNumber : ${pageNumbers}">
+            <a th:href="@{/(size=${results.size}, page=${pageNumber-1})}"
+               th:text=${pageNumber}
+               th:class="${pageNumber==results.number + 1} ? active">
+            </a>
+        </div>
     </div>
 </div>
 </body>

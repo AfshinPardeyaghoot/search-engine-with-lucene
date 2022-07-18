@@ -211,14 +211,24 @@ table{
     left: 20%;
 }
 
-.pagination {
+.pagination-container{
     height: 10%;
     width: 100%;
-    background-color: #2f2c2c;
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
     justify-content: center;
 }
+
+
+/*.pagination {*/
+/*    height: 10%;*/
+/*    width: 100%;*/
+/*    background-color: #2f2c2c;*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    justify-content: center;*/
+/*}*/
+
 
 .pagination a {
     height: 35px;
